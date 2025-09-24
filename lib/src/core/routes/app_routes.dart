@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:malina/src/features/auth/domain/usecases/check_auth_status.dart';
 import 'package:malina/src/features/features.dart';
 import 'package:malina/src/injection_container.dart';
 
@@ -27,18 +26,9 @@ GoRouter createRouter(String initialLocation) {
       return null;
     },
     routes: [
-      GoRoute(
-        path: AppRoutes.login,
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: AppRoutes.main,
-        builder: (context, state) => const MainView(),
-      ),
-      GoRoute(
-        path: AppRoutes.home,
-        builder: (context, state) => const HomePage(),
-      ),
+      GoRoute(path: AppRoutes.login, builder: (context, state) => const LoginPage()),
+      GoRoute(path: AppRoutes.main, builder: (context, state) => const MainView()),
+      GoRoute(path: AppRoutes.home, builder: (context, state) => const HomePage()),
       GoRoute(
         path: AppRoutes.basket,
         builder: (context, state) {

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
-import 'package:malina/src/features/auth/domain/entities/user_entity.dart';
-import 'package:malina/src/features/auth/domain/usecases/delete_account.dart';
-import 'package:malina/src/features/auth/domain/usecases/get_current_user.dart';
-import 'package:malina/src/features/auth/domain/usecases/logout_user.dart';
 
 import 'package:malina/src/features/features.dart';
 import 'package:malina/src/injection_container.dart';

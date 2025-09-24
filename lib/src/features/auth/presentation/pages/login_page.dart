@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
-import 'package:malina/src/features/auth/domain/entities/login_result.dart';
 import 'package:malina/src/features/features.dart';
 
 class LoginPage extends StatefulWidget {
