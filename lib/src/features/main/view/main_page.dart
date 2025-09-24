@@ -15,7 +15,7 @@ class MainView extends StatelessWidget {
       HomePage(),
       SizedBox(),
       SizedBox(),
-      SizedBox(),
+      ProfilePage(),
       SizedBox(),
     ]);
   }
@@ -103,7 +103,7 @@ class MainScreen extends StatelessWidget {
                         BlendMode.srcIn,
                       ),
                     ),
-                    label: 'favorites',
+                    label: 'profile',
                   ),
                   BottomNavigationBarItem(
                     icon: GestureDetector(

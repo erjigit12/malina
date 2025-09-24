@@ -8,12 +8,16 @@ abstract class AuthLocalDataSource {
   Future<UserModel?> fetchUser(String email);
   Future<void> saveUser(UserModel user);
   Future<void> deleteUser(String email);
+  Future<void> setCurrentUser(String email);
+  Future<String?> getCurrentUserEmail();
+  Future<void> clearCurrentUser();
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   AuthLocalDataSourceImpl(this._preferences);
 
   static const _usersKey = 'auth_users';
+  static const _currentUserKey = 'auth_current_user';
 
   final SharedPreferences _preferences;
 
@@ -24,7 +28,13 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     if (data == null) {
       return null;
     }
-    return UserModel.fromJson(Map<String, dynamic>.from(data as Map));
+    if (data is Map<String, dynamic>) {
+      return UserModel.fromJson(data);
+    }
+    if (data is Map) {
+      return UserModel.fromJson(Map<String, dynamic>.from(data));
+    }
+    return null;
   }
 
   @override
@@ -39,6 +49,29 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     final users = await _readUsers();
     users.remove(email);
     await _writeUsers(users);
+    final current = await getCurrentUserEmail();
+    if (current == email) {
+      await clearCurrentUser();
+    }
+  }
+
+  @override
+  Future<void> setCurrentUser(String email) async {
+    await _preferences.setString(_currentUserKey, email);
+  }
+
+  @override
+  Future<String?> getCurrentUserEmail() async {
+    final value = _preferences.getString(_currentUserKey);
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    return value;
+  }
+
+  @override
+  Future<void> clearCurrentUser() async {
+    await _preferences.remove(_currentUserKey);
   }
 
   Future<Map<String, dynamic>> _readUsers() async {

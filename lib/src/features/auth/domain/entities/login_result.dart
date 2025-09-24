@@ -7,11 +7,7 @@ class LoginResult extends Equatable {
   final String? message;
   final int? attemptsLeft;
 
-  const LoginResult({
-    required this.status,
-    this.message,
-    this.attemptsLeft,
-  });
+  const LoginResult({required this.status, this.message, this.attemptsLeft});
 
   @override
   List<Object?> get props => [status, message, attemptsLeft];

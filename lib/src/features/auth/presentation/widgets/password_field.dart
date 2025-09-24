@@ -38,7 +38,10 @@ class PasswordField extends StatelessWidget {
         errorText: errorText,
         filled: true,
         fillColor: AppColors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 18,
+        ),
         enabledBorder: _outline(AppColors.lightGrey),
         focusedBorder: _outline(AppColors.primary),
         errorBorder: _outline(AppColors.primary),

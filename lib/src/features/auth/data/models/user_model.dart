@@ -23,11 +23,8 @@ class UserModel extends UserEntity {
     };
   }
 
-  UserModel copyWith({
-    String? email,
-    String? password,
-    int? failedAttempts,
-  }) {
+  @override
+  UserModel copyWith({String? email, String? password, int? failedAttempts}) {
     return UserModel(
       email: email ?? this.email,
       password: password ?? this.password,

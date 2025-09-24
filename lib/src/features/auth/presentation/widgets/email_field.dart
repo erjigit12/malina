@@ -38,18 +38,26 @@ class EmailField extends StatelessWidget {
         errorText: errorText,
         filled: true,
         fillColor: AppColors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 18,
+        ),
         enabledBorder: _outline(AppColors.lightGrey),
         focusedBorder: _outline(AppColors.primary),
         errorBorder: _outline(AppColors.primary),
         focusedErrorBorder: _outline(AppColors.primary),
-        suffixIcon: hasValue && onClear != null
-            ? IconButton(
-                onPressed: onClear,
-                splashRadius: 20,
-                icon: const Icon(Icons.close, size: 20, color: AppColors.lightBlack),
-              )
-            : null,
+        suffixIcon:
+            hasValue && onClear != null
+                ? IconButton(
+                  onPressed: onClear,
+                  splashRadius: 20,
+                  icon: const Icon(
+                    Icons.close,
+                    size: 20,
+                    color: AppColors.lightBlack,
+                  ),
+                )
+                : null,
       ),
       onChanged: onChanged,
     );

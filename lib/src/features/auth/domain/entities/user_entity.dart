@@ -14,11 +14,7 @@ class UserEntity extends Equatable {
   @override
   List<Object?> get props => [email, password, failedAttempts];
 
-  UserEntity copyWith({
-    String? email,
-    String? password,
-    int? failedAttempts,
-  }) {
+  UserEntity copyWith({String? email, String? password, int? failedAttempts}) {
     return UserEntity(
       email: email ?? this.email,
       password: password ?? this.password,

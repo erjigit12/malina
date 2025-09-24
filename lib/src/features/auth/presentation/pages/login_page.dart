@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
+import 'package:malina/src/features/auth/domain/entities/login_result.dart';
 import 'package:malina/src/features/features.dart';
 
 class LoginPage extends StatefulWidget {
@@ -50,6 +51,16 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state.formStatus == FormStatus.success) {
               context.go(AppRoutes.main);
+            } else if (state.loginStatus == LoginStatus.userDeleted &&
+                state.passwordError != null) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text(state.passwordError!)));
+            } else if (state.loginStatus == LoginStatus.error &&
+                state.passwordError != null) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(content: Text(state.passwordError!)));
             }
           },
           child: Center(
@@ -79,7 +90,11 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                       const SizedBox(height: 32),
-                      LoginButton(onPressed: _onSubmit),
+                      ConfirmButton(
+                        title: 'Войти',
+                        onPressed: _onSubmit,
+                        isLoading: state.formStatus == FormStatus.loading,
+                      ),
                     ],
                   );
                 },
