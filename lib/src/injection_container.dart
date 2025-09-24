@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,9 +37,7 @@ Future<void> init() async {
   sl.registerLazySingleton<HiveInterface>(() => Hive);
 
   // Data sources
-  sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sl()),
-  );
+  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl(sl()));
   sl.registerLazySingleton<BasketLocalDataSource>(
     () => BasketLocalDataSourceImpl(sl()),
   );

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina/src/core/core.dart';
@@ -5,7 +7,7 @@ import 'package:malina/src/features/basket/domain/entities/basket_item_entity.da
 import 'package:malina/src/features/features.dart';
 
 class BasketGroupCard extends StatelessWidget {
-  const BasketGroupCard({required this.subcategory, required this.items});
+  const BasketGroupCard({super.key, required this.subcategory, required this.items});
 
   final String subcategory;
   final List<BasketItemEntity> items;

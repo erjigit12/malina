@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina/src/core/core.dart';
@@ -28,8 +30,9 @@ class CategorySelector extends StatelessWidget {
           return _CategoryChip(
             label: category,
             isActive: isActive,
-            onTap: () =>
-                context.read<BasketBloc>().add(BasketCategorySelected(category)),
+            onTap:
+                () =>
+                    context.read<BasketBloc>().add(BasketCategorySelected(category)),
           );
         },
       ),
@@ -65,15 +68,16 @@ class _CategoryChip extends StatelessWidget {
           border: Border.all(
             color: isActive ? AppColors.primary : AppColors.lightGrey,
           ),
-          boxShadow: isActive
-              ? [
-                  BoxShadow(
-                    color: AppColors.primary.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ]
-              : null,
+          boxShadow:
+              isActive
+                  ? [
+                    BoxShadow(
+                      color: AppColors.primary.withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                  : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
