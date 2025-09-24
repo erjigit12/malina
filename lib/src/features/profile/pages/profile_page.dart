@@ -26,8 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _userFuture = sl<GetCurrentUser>()()
-      ..then((value) => _currentUser = value);
+    _userFuture = sl<GetCurrentUser>()()..then((value) => _currentUser = value);
   }
 
   @override

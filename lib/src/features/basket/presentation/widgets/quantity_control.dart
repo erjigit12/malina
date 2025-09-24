@@ -55,12 +55,14 @@ class _QuantityButton extends StatelessWidget {
       height: 40,
       width: 40,
       decoration: BoxDecoration(
-        color: AppColors.lightGrey,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.lightGrey),
       ),
       child: IconButton(
         icon: Icon(icon, size: 20, color: AppColors.black),
         onPressed: onPressed,
+        padding: EdgeInsets.zero,
       ),
     );
   }

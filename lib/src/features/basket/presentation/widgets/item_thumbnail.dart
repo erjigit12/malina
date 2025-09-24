@@ -11,17 +11,22 @@ class ItemThumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     if (imagePath != null && imagePath!.isNotEmpty) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.asset(imagePath!, width: 80, height: 80, fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(40),
+        child: Image.asset(
+          imagePath!,
+          width: 80,
+          height: 80,
+          fit: BoxFit.cover,
+        ),
       );
     }
 
     return Container(
       width: 80,
       height: 80,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.lightGrey,
-        borderRadius: BorderRadius.circular(12),
+        shape: BoxShape.circle,
       ),
       alignment: Alignment.center,
       child: Text(

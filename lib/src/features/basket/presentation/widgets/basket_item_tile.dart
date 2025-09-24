@@ -22,34 +22,41 @@ class BasketItemTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item.name, style: AppTextStyles.f16w500),
+                Text(
+                  item.name,
+                  style: AppTextStyles.f16w500,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 if (item.description != null && item.description!.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
                     item.description!,
-                    style: AppTextStyles.f12w400.copyWith(
-                      color: const Color(0xFF777777),
-                    ),
+                    style: AppTextStyles.f12w400.copyWith(color: const Color(0xFF777777)),
                   ),
                 ],
                 const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    QuantityControl(item: item),
-                    Text(
-                      '${_formatCurrency(item.price)} C',
-                      style: AppTextStyles.f16w500,
-                    ),
-                  ],
-                ),
+                QuantityControl(item: item),
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.delete_outline),
-            onPressed:
-                () => context.read<BasketBloc>().add(BasketItemRemoved(item.id)),
+          const SizedBox(width: 12),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '${_formatCurrency(item.price)} C',
+                style: AppTextStyles.f16w500,
+              ),
+              const SizedBox(height: 24),
+              IconButton(
+                icon: const Icon(Icons.delete_outline, color: AppColors.lightBlack),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                onPressed: () => context.read<BasketBloc>().add(BasketItemRemoved(item.id)),
+              ),
+            ],
           ),
         ],
       ),
