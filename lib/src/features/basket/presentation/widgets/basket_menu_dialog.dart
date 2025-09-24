@@ -37,7 +37,7 @@ class BasketMenuPopup extends StatelessWidget {
                 _MenuCircleItem(
                   onTap: () {
                     Navigator.of(context).pop();
-                    context.go(AppRoutes.basket, extra: 0);
+                    parentContext.push(AppRoutes.basket, extra: 0);
                   },
                   icon: Icons.restaurant_menu,
                   label: 'Еда',
@@ -47,7 +47,7 @@ class BasketMenuPopup extends StatelessWidget {
                 _MenuCircleItem(
                   onTap: () {
                     Navigator.of(context).pop();
-                    parentContext.go(AppRoutes.basket, extra: 1);
+                    parentContext.push(AppRoutes.basket, extra: 1);
                   },
                   icon: Icons.spa,
                   label: 'Бьюти',

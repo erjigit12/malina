@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => sl<LoginBloc>()),
         BlocProvider(create: (context) => MainCubit()),
+        BlocProvider(
+          create: (context) => sl<BasketBloc>()..add(const BasketStarted()),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: _router,

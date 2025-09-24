@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:malina/src/features/auth/domain/usecases/check_auth_status.dart';
 import 'package:malina/src/features/features.dart';
 import 'package:malina/src/injection_container.dart';
 
@@ -8,6 +9,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String basket = '/basket';
   static const String profile = '/profile';
+  static const String addBasket = '/add_basket';
 }
 
 GoRouter createRouter(String initialLocation) {
@@ -39,6 +41,10 @@ GoRouter createRouter(String initialLocation) {
       GoRoute(
         path: AppRoutes.profile,
         builder: (context, state) => const ProfilePage(),
+      ),
+      GoRoute(
+        path: AppRoutes.addBasket,
+        builder: (context, state) => const AddBasketPage(),
       ),
     ],
   );
