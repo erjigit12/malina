@@ -20,7 +20,7 @@ class AddBasketBackgroundPainter extends CustomPainter {
     path.quadraticBezierTo(w, 0, w, radius);
     path.lineTo(w, baseY);
 
-    const amplitudes = [16.0, 32.0, 44.0, 32.0, 16.0];
+    const amplitudes = [16.0, 100.0, 100.0, 100.0, 16.0];
     final segmentWidth = w / amplitudes.length;
 
     for (var i = amplitudes.length - 1; i >= 0; i--) {
