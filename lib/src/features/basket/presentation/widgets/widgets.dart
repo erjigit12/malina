@@ -6,3 +6,4 @@ export 'category_selector.dart';
 export 'basket_item_tile.dart';
 export 'quantity_control.dart';
 export 'item_thumbnail.dart';
+export 'add_basket_background_painter.dart';

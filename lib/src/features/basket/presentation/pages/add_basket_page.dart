@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
-import 'package:malina/src/features/auth/presentation/widgets/confirm_button.dart';
 import 'package:malina/src/features/basket/domain/entities/basket_item_entity.dart';
-import 'package:malina/src/features/basket/presentation/bloc/basket_bloc.dart';
+import 'package:malina/src/features/features.dart';
 
 class AddBasketPage extends StatefulWidget {
   const AddBasketPage({super.key});
@@ -127,66 +126,64 @@ class _AddBasketPageState extends State<AddBasketPage> {
           final categories = state.categories;
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/backbasket.png'),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildCategoryField(categories),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: _subcategoryController,
-                      label: 'Подкатегория',
-                      validator:
-                          (value) =>
-                              value == null || value.trim().isEmpty
-                                  ? 'Введите подкатегорию'
-                                  : null,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: _nameController,
-                      label: 'Название',
-                      validator:
-                          (value) =>
-                              value == null || value.trim().isEmpty
-                                  ? 'Введите название'
-                                  : null,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: _priceController,
-                      label: 'Цена',
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
+            child: CustomPaint(
+              painter: AddBasketBackgroundPainter(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildCategoryField(categories),
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: _subcategoryController,
+                        label: 'Подкатегория',
+                        validator:
+                            (value) =>
+                                value == null || value.trim().isEmpty
+                                    ? 'Введите подкатегорию'
+                                    : null,
                       ),
-                      validator: (value) {
-                        final raw = value?.replaceAll(',', '.').trim();
-                        final parsed = double.tryParse(raw ?? '');
-                        if (parsed == null || parsed <= 0) {
-                          return 'Введите корректную цену';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: _descriptionController,
-                      label: 'Описание',
-                      maxLines: 5,
-                      validator: (_) => null,
-                    ),
-                    const SizedBox(height: 24),
-                    ConfirmButton(title: 'Сохранить', onPressed: _onSave),
-                  ],
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: _nameController,
+                        label: 'Название',
+                        validator:
+                            (value) =>
+                                value == null || value.trim().isEmpty
+                                    ? 'Введите название'
+                                    : null,
+                      ),
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: _priceController,
+                        label: 'Цена',
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        validator: (value) {
+                          final raw = value?.replaceAll(',', '.').trim();
+                          final parsed = double.tryParse(raw ?? '');
+                          if (parsed == null || parsed <= 0) {
+                            return 'Введите корректную цену';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: _descriptionController,
+                        label: 'Описание',
+                        maxLines: 5,
+                        validator: (_) => null,
+                      ),
+                      const SizedBox(height: 24),
+                      ConfirmButton(title: 'Сохранить', onPressed: _onSave),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -214,7 +211,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
             labelText: 'Категория',
             labelStyle: AppTextStyles.f16w400.copyWith(color: AppColors.grey),
             filled: true,
-            fillColor: const Color(0xFFFFF0F3),
+            fillColor: const Color(0xFFFFEDF2),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             enabledBorder: _fieldBorder(AppColors.lightGrey),
             focusedBorder: _fieldBorder(AppColors.primary),
@@ -265,7 +262,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
         labelText: label,
         labelStyle: AppTextStyles.f16w400.copyWith(color: AppColors.grey),
         filled: true,
-        fillColor: const Color(0xFFFFF0F3),
+        fillColor: const Color(0xFFFFEDF2),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         enabledBorder: _fieldBorder(AppColors.lightGrey),
         focusedBorder: _fieldBorder(AppColors.primary),
