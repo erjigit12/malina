@@ -19,29 +19,42 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 170,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
+      child: Stack(
         children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title, style: AppTextStyles.f22w600),
-                  const SizedBox(height: 8),
-                  Text(subtitle, style: AppTextStyles.f16w300),
-                ],
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+              child: Image.asset(
+                image,
+                height: double.infinity,
+                alignment: Alignment.centerRight,
+                width: 300,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(image, fit: BoxFit.cover),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(title, style: AppTextStyles.f22w600),
+                const SizedBox(height: 8),
+                Expanded(child: Text(subtitle, style: AppTextStyles.f16w300)),
+              ],
+            ),
           ),
         ],
       ),

@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                 image: 'assets/images/beauty.png',
               ),
               const SizedBox(height: 32),
-              const _SoonSection(),
+              _SoonSection(),
             ],
           ),
         ),
