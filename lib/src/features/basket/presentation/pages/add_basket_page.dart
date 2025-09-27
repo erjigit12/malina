@@ -129,7 +129,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
             child: CustomPaint(
               painter: AddBasketBackgroundPainter(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -181,7 +181,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
                       ),
                       const SizedBox(height: 24),
                       ConfirmButton(title: 'Сохранить', onPressed: _onSave),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 24),
                     ],
                   ),
                 ),
