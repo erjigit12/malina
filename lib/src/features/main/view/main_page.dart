@@ -44,8 +44,9 @@ class MainScreen extends StatelessWidget {
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
-                  blurRadius: 8,
-                  offset: Offset(0, -2),
+                  blurRadius: 50,
+                  spreadRadius: 5,
+                  offset: Offset(-10, 5),
                 ),
               ],
             ),
@@ -128,34 +129,39 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 35,
-            child: GestureDetector(
-              onTap: () {
-                context.read<MainCubit>().change(2);
-              },
-              child: Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<MainCubit>().change(2);
+                  },
+                  child: Container(
+                    width: 64,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primary.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    'assets/icons/qrcode.svg',
-                    width: 32,
-                    height: 32,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/icons/qrcode.svg',
+                        width: 32,
+                        height: 32,
+                        colorFilter: const ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
                     ),
                   ),
                 ),
