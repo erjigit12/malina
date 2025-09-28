@@ -17,7 +17,7 @@ class QuantityControl extends StatelessWidget {
           icon: Icons.remove,
           onPressed: () {
             final newQuantity = item.quantity - 1;
-            if (newQuantity >= 0) {
+            if (newQuantity >= 1) {
               context.read<BasketBloc>().add(
                 BasketItemQuantityChanged(itemId: item.id, quantity: newQuantity),
               );

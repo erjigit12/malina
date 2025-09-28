@@ -91,6 +91,7 @@ class _BasketPageState extends State<BasketPage> {
                       return BasketGroupCard(
                         subcategory: entry.key,
                         items: entry.value,
+                        category: activeCategory,
                       );
                     },
                     separatorBuilder: (_, __) => const SizedBox(height: 16),
@@ -100,11 +101,11 @@ class _BasketPageState extends State<BasketPage> {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColors.primary,
+            elevation: 10,
             onPressed: () {
               context.push(AppRoutes.addBasket);
             },
-            child: const Icon(Icons.add, color: Colors.white),
+            child: const Icon(Icons.add),
           ),
         );
       },
