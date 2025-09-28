@@ -41,14 +41,30 @@ dependencies:
   equatable: ^2.0.7
   go_router: ^16.2.4
 
+  # -- Localization -- #
+  flutter_localizations:
+    sdk: flutter
+  slang: ^4.8.1
+  slang_flutter: ^4.8.0
+  flutter_launcher_icons: ^0.14.4  
+  in_app_update: ^4.2.5
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_gen_runner: ^5.10.0
   build_runner: ^2.5.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logotype.png"
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/images/

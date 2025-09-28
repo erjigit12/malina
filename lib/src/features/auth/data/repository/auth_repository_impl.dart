@@ -3,13 +3,15 @@ import 'package:malina/src/features/auth/data/models/user_model.dart';
 import 'package:malina/src/features/auth/domain/entities/login_result.dart';
 import 'package:malina/src/features/auth/domain/entities/user_entity.dart';
 import 'package:malina/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:malina/src/features/basket/domain/repositories/basket_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(this._localDataSource);
+  AuthRepositoryImpl(this._localDataSource, this._basketRepository);
 
   static const _maxAttempts = 3;
 
   final AuthLocalDataSource _localDataSource;
+  final BasketRepository _basketRepository;
 
   @override
   Future<LoginResult> login({
@@ -32,10 +34,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       if (storedUser.password == password) {
-        final updated = storedUser.copyWith(
-          failedAttempts: 0,
-          password: password,
-        );
+        final updated = storedUser.copyWith(failedAttempts: 0, password: password);
         await _localDataSource.saveUser(updated);
         await _localDataSource.setCurrentUser(normalizedEmail);
         return const LoginResult(status: LoginStatus.success);
@@ -44,6 +43,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final attempts = storedUser.failedAttempts + 1;
       if (attempts >= _maxAttempts) {
         await _localDataSource.deleteUser(normalizedEmail);
+        await _basketRepository.clearAll(userId: normalizedEmail);
         return const LoginResult(
           status: LoginStatus.userDeleted,
           message: 'Превышено количество попыток. Аккаунт удален.',
@@ -102,6 +102,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (email == null) {
       return;
     }
+    await _basketRepository.clearAll(userId: email);
     await _localDataSource.deleteUser(email);
     await _localDataSource.clearCurrentUser();
   }

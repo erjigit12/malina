@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state.formStatus == FormStatus.success) {
+              context.read<BasketBloc>().add(BasketUserChanged(state.email));
               context.go(AppRoutes.main);
             } else if (state.loginStatus == LoginStatus.userDeleted &&
                 state.passwordError != null) {

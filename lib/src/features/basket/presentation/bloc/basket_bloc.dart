@@ -41,6 +41,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     on<BasketCategoryCleared>(_onCategoryCleared);
     on<BasketItemUpdated>(_onItemUpdated);
     on<BasketSubcategoryCleared>(_onSubcategoryCleared);
+    on<BasketUserChanged>(_onUserChanged);
   }
 
   final LoadBasketItems _loadBasketItems;
@@ -68,34 +69,15 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   }
 
   Future<void> _onStarted(BasketStarted event, Emitter<BasketState> emit) async {
-    emit(state.copyWith(isLoading: true, errorMessage: null));
-    await _ensureUser();
-    final userId = _userId;
-    if (userId == null) {
-      emit(state.copyWith(isLoading: false, errorMessage: 'Пользователь не найден'));
+    emit(const BasketState(isLoading: true));
+    final user = await _getCurrentUser();
+    _userId = user?.email;
+    if (_userId == null) {
+      emit(const BasketState(errorMessage: 'Пользователь не найден', items: []));
       return;
     }
 
-    try {
-      final items = await _loadBasketItems(userId);
-      final categories = {
-        ...BasketState.defaultCategories,
-        ...items.map((e) => e.category),
-      }.toList()
-        ..sort();
-      final desiredCategory = items.any((item) => item.category == state.activeCategory)
-          ? state.activeCategory
-          : (categories.isNotEmpty ? categories.first : BasketState.defaultActiveCategory);
-
-      emit(state.copyWith(
-        isLoading: false,
-        items: items,
-        activeCategory: desiredCategory,
-        errorMessage: null,
-      ));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, errorMessage: 'Не удалось загрузить корзину'));
-    }
+    await _loadItemsForCurrentUser(emit, resetActiveCategory: true);
   }
 
   void _onCategorySelected(BasketCategorySelected event, Emitter<BasketState> emit) {
@@ -191,6 +173,64 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         .toList();
     emit(state.copyWith(items: updatedItems));
     await _updateBasketItems(userId: userId, items: updatedItems);
+  }
+
+  Future<void> _onUserChanged(
+    BasketUserChanged event,
+    Emitter<BasketState> emit,
+  ) async {
+    _userId = event.email;
+    if (_userId == null) {
+      emit(const BasketState());
+      return;
+    }
+
+    emit(const BasketState(isLoading: true));
+    await _loadItemsForCurrentUser(emit, resetActiveCategory: true);
+  }
+
+  Future<void> _loadItemsForCurrentUser(
+    Emitter<BasketState> emit, {
+    required bool resetActiveCategory,
+  }) async {
+    final userId = _userId;
+    if (userId == null) {
+      emit(state.copyWith(isLoading: false, items: const [], errorMessage: 'Пользователь не найден'));
+      return;
+    }
+
+    try {
+      final items = await _loadBasketItems(userId);
+      final categories = {
+        ...BasketState.defaultCategories,
+        ...items.map((item) => item.category),
+      }.toList()
+        ..sort();
+
+      String activeCategory;
+      if (resetActiveCategory) {
+        activeCategory = categories.contains(BasketState.defaultActiveCategory)
+            ? BasketState.defaultActiveCategory
+            : (categories.isNotEmpty ? categories.first : BasketState.defaultActiveCategory);
+      } else {
+        activeCategory = categories.contains(state.activeCategory)
+            ? state.activeCategory
+            : (categories.contains(BasketState.defaultActiveCategory)
+                ? BasketState.defaultActiveCategory
+                : (categories.isNotEmpty ? categories.first : BasketState.defaultActiveCategory));
+      }
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          items: items,
+          activeCategory: activeCategory,
+          errorMessage: null,
+        ),
+      );
+    } catch (_) {
+      emit(state.copyWith(isLoading: false, errorMessage: 'Не удалось загрузить корзину'));
+    }
   }
 
   Future<void> _schedulePersist() async {

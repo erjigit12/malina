@@ -8,6 +8,7 @@ import 'package:malina/src/features/auth/domain/usecases/get_current_user.dart';
 import 'package:malina/src/features/auth/domain/usecases/logout_user.dart';
 import 'package:malina/src/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:malina/src/features/auth/presentation/widgets/confirm_button.dart';
+import 'package:malina/src/features/basket/presentation/bloc/basket_bloc.dart';
 import 'package:malina/src/features/basket/domain/usecases/clear_basket.dart';
 import 'package:malina/src/injection_container.dart';
 
@@ -133,6 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     await sl<LogoutUser>()();
     if (!mounted) return;
+    context.read<BasketBloc>().add(const BasketUserChanged(null));
     context.read<LoginBloc>().add(LoginReset());
     context.go(AppRoutes.login);
   }
@@ -167,8 +169,12 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() => _isDeleting = true);
 
     try {
+      if (_currentUser != null) {
+        await sl<ClearBasket>()(userId: _currentUser!.email);
+      }
       await sl<DeleteAccount>()();
       if (!mounted) return;
+      context.read<BasketBloc>().add(const BasketUserChanged(null));
       context.read<LoginBloc>().add(LoginReset());
       context.go(AppRoutes.login);
       ScaffoldMessenger.of(context)

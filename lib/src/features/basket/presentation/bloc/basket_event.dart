@@ -79,3 +79,12 @@ class BasketSubcategoryCleared extends BasketEvent {
   @override
   List<Object?> get props => [category, subcategory];
 }
+
+class BasketUserChanged extends BasketEvent {
+  final String? email;
+
+  const BasketUserChanged(this.email);
+
+  @override
+  List<Object?> get props => [email];
+}

@@ -49,7 +49,7 @@ Future<void> init() async {
   sl.registerLazySingleton<QrScannerDataSource>(() => QrScannerDataSourceImpl());
 
   // Repositories
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl(), sl()));
   sl.registerLazySingleton<BasketRepository>(() => BasketRepositoryImpl(sl()));
   sl.registerLazySingleton<QrScannerRepository>(() => QrScannerRepositoryImpl(sl()));
 

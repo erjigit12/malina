@@ -16,9 +16,9 @@ class QrCard extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(
-            'assets/icons/qrhome.svg',
-            width: 50,
-            height: 58,
+            'assets/icons/qrcode.svg',
+            width: 32,
+            height: 32,
             colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
           ),
           const SizedBox(width: 16),

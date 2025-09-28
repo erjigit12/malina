@@ -51,11 +51,11 @@ class _BasketPageState extends State<BasketPage> {
             centerTitle: false,
             actions: [
               TextButton(
-                onPressed:
-                    state.items.isEmpty
-                        ? null
-                        : () =>
-                            context.read<BasketBloc>().add(const BasketCleared()),
+                onPressed: state.items.isEmpty
+                    ? null
+                    : () => context
+                        .read<BasketBloc>()
+                        .add(BasketCategoryCleared(activeCategory)),
                 child: Text(
                   'Очистить',
                   style: AppTextStyles.f14w400.copyWith(

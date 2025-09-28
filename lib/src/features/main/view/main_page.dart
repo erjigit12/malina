@@ -83,7 +83,7 @@ class MainScreen extends StatelessWidget {
                         BlendMode.srcIn,
                       ),
                     ),
-                    label: 'home',
+                    label: 'Лента',
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(
@@ -93,7 +93,7 @@ class MainScreen extends StatelessWidget {
                         BlendMode.srcIn,
                       ),
                     ),
-                    label: 'favorites',
+                    label: 'Избранное',
                   ),
                   // Пустой элемент для центральной кнопки
                   const BottomNavigationBarItem(icon: SizedBox.shrink(), label: ''),
@@ -105,7 +105,7 @@ class MainScreen extends StatelessWidget {
                         BlendMode.srcIn,
                       ),
                     ),
-                    label: 'profile',
+                    label: 'Профиль',
                   ),
                   BottomNavigationBarItem(
                     icon: GestureDetector(
@@ -124,7 +124,7 @@ class MainScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    label: 'basket',
+                    label: 'Корзина',
                   ),
                 ],
               ),
