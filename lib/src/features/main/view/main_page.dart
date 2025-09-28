@@ -69,6 +69,14 @@ class MainScreen extends StatelessWidget {
                 showUnselectedLabels: true,
                 currentIndex: currentIndex,
                 onTap: (index) async {
+                  if (index == 4) {
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      builder: (_) => BasketMenuPopup(parentContext: context),
+                    );
+                    return;
+                  }
                   if (index != 2) {
                     context.read<MainCubit>().change(index);
                   }
@@ -95,7 +103,6 @@ class MainScreen extends StatelessWidget {
                     ),
                     label: 'Избранное',
                   ),
-                  // Пустой элемент для центральной кнопки
                   const BottomNavigationBarItem(icon: SizedBox.shrink(), label: ''),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset(
@@ -108,20 +115,11 @@ class MainScreen extends StatelessWidget {
                     label: 'Профиль',
                   ),
                   BottomNavigationBarItem(
-                    icon: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          barrierColor: Colors.transparent,
-                          builder: (_) => BasketMenuPopup(parentContext: context),
-                        );
-                      },
-                      child: SvgPicture.asset(
-                        'assets/icons/basket.svg',
-                        colorFilter: ColorFilter.mode(
-                          currentIndex == 4 ? AppColors.primary : AppColors.grey,
-                          BlendMode.srcIn,
-                        ),
+                    icon: SvgPicture.asset(
+                      'assets/icons/basket.svg',
+                      colorFilter: ColorFilter.mode(
+                        currentIndex == 4 ? AppColors.primary : AppColors.grey,
+                        BlendMode.srcIn,
                       ),
                     ),
                     label: 'Корзина',
