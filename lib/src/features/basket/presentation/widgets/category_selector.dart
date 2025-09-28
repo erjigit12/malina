@@ -45,17 +45,14 @@ class _CategoryChip extends StatelessWidget {
     required this.label,
     required this.isActive,
     required this.onTap,
-    // this.isExpanded = false,
   });
 
   final String label;
   final bool isActive;
   final VoidCallback onTap;
-  // final bool isExpanded;
 
   @override
   Widget build(BuildContext context) {
-    // final horizontalPadding = isExpanded ? 0.0 : 28.0;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(

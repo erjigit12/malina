@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
 
@@ -38,7 +39,7 @@ class BasketMenuPopup extends StatelessWidget {
                     Navigator.of(context).pop();
                     parentContext.push(AppRoutes.basket, extra: 0);
                   },
-                  icon: Icons.restaurant_menu,
+                  icon: 'assets/icons/food_menu.svg',
                   label: 'Еда',
                   notification: false,
                 ),
@@ -48,7 +49,7 @@ class BasketMenuPopup extends StatelessWidget {
                     Navigator.of(context).pop();
                     parentContext.push(AppRoutes.basket, extra: 1);
                   },
-                  icon: Icons.spa,
+                  icon: 'assets/icons/beauty_menu.svg',
                   label: 'Бьюти',
                   notification: true,
                 ),
@@ -69,7 +70,7 @@ class _MenuCircleItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final IconData icon;
+  final String icon;
   final String label;
   final bool notification;
   final void Function()? onTap;
@@ -98,36 +99,20 @@ class _MenuCircleItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 25, color: Colors.black87),
+                SvgPicture.asset(
+                  icon,
+                  width: 20,
+                  height: 20,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.black87,
+                    BlendMode.srcIn,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(label, style: AppTextStyles.f10w400),
               ],
             ),
           ),
-          // if (notification)
-          //   Positioned(
-          //     top: 10,
-          //     right: 10,
-          //     child: Container(
-          //       width: 20,
-          //       height: 20,
-          //       decoration: BoxDecoration(
-          //         color: AppColors.primary,
-          //         shape: BoxShape.circle,
-          //         border: Border.all(color: Colors.white, width: 2),
-          //       ),
-          //       child: const Center(
-          //         child: Text(
-          //           '1',
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 12,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
         ],
       ),
     );

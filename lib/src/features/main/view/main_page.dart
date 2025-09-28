@@ -68,6 +68,7 @@ class MainScreen extends StatelessWidget {
                 showSelectedLabels: true,
                 showUnselectedLabels: true,
                 currentIndex: currentIndex,
+
                 onTap: (index) async {
                   if (index == 4) {
                     showDialog(
@@ -156,7 +157,9 @@ class MainScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: SvgPicture.asset(
-                        'assets/icons/qrcode.svg',
+                        currentIndex == 0
+                            ? 'assets/icons/qrcode.svg'
+                            : 'assets/icons/qrcodeshare.svg',
                         width: 32,
                         height: 32,
                         colorFilter: const ColorFilter.mode(
