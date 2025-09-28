@@ -12,7 +12,20 @@ class QrScannerDataSourceImpl implements QrScannerDataSource {
       if (sanitized.isEmpty) throw FormatException(_errorMessage(rawValue));
 
       if (_looksLikeJson(sanitized)) {
-        return QrProductModel.fromJson(sanitized);
+        final model = QrProductModel.fromJson(sanitized);
+        final mappedCategory = _mapCategory(model.category);
+        if (mappedCategory == null) {
+          throw FormatException(_errorMessage(rawValue));
+        }
+        return QrProductModel(
+          id: model.id,
+          category: mappedCategory,
+          subcategory: model.subcategory,
+          name: model.name,
+          price: model.price,
+          description: model.description,
+          image: model.image,
+        );
       }
 
       return QrProductModel.fromMap(_parsePlainText(sanitized));
@@ -22,11 +35,18 @@ class QrScannerDataSourceImpl implements QrScannerDataSource {
   }
 
   Map<String, dynamic> _parsePlainText(String value) {
-    final lines = value.split(RegExp(r"\r?\n")).where((line) => line.trim().isNotEmpty).toList();
+    final lines =
+        value
+            .split(RegExp(r"\r?\n"))
+            .where((line) => line.trim().isNotEmpty)
+            .toList();
     if (lines.isEmpty) throw FormatException('');
 
     final parts = lines.first.split('/').map((p) => p.trim()).toList();
     if (parts.length < 4) throw FormatException('');
+
+    final mappedCategory = _mapCategory(parts[0]);
+    if (mappedCategory == null) throw FormatException('');
 
     final description = lines.length > 1 ? lines.sublist(1).join(' ').trim() : null;
 
@@ -35,7 +55,7 @@ class QrScannerDataSourceImpl implements QrScannerDataSource {
 
     return {
       'id': parts.length > 4 ? parts[4] : parts[0],
-      'category': parts[0],
+      'category': mappedCategory,
       'subcategory': parts[1],
       'name': parts[2],
       'price': price,
@@ -45,6 +65,17 @@ class QrScannerDataSourceImpl implements QrScannerDataSource {
 
   bool _looksLikeJson(String value) {
     return value.startsWith('{') && value.endsWith('}');
+  }
+
+  String? _mapCategory(String rawCategory) {
+    final normalized = rawCategory.trim().toLowerCase();
+    if (normalized.startsWith('food')) {
+      return 'Еда';
+    }
+    if (normalized.startsWith('beauty')) {
+      return 'Бьюти';
+    }
+    return null;
   }
 
   String _errorMessage(String rawValue) => 'Некорректный формат QR: $rawValue';
