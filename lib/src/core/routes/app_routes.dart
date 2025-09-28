@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/features/features.dart';
 import 'package:malina/src/injection_container.dart';
@@ -9,6 +10,7 @@ class AppRoutes {
   static const String basket = '/basket';
   static const String profile = '/profile';
   static const String addBasket = '/add_basket';
+  static const String qrScanner = '/qr_scanner';
 }
 
 GoRouter createRouter(String initialLocation) {
@@ -44,6 +46,18 @@ GoRouter createRouter(String initialLocation) {
       GoRoute(
         path: AppRoutes.addBasket,
         builder: (context, state) => const AddBasketPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.qrScanner,
+        builder: (context, state) {
+          final args =
+              state.extra as QrScannerArgs? ??
+              const QrScannerArgs(origin: QrScannerOrigin.home);
+          return BlocProvider(
+            create: (_) => sl<QrScannerBloc>()..add(QrScannerStarted()),
+            child: QrScannerPage(args: args),
+          );
+        },
       ),
     ],
   );

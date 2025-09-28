@@ -22,6 +22,11 @@ import 'package:malina/src/features/basket/domain/usecases/clear_category.dart';
 import 'package:malina/src/features/basket/domain/usecases/load_basket_items.dart';
 import 'package:malina/src/features/basket/domain/usecases/remove_basket_item.dart';
 import 'package:malina/src/features/basket/domain/usecases/update_basket_items.dart';
+import 'package:malina/src/features/qrcode/data/datasources/qr_scanner_data_source.dart';
+import 'package:malina/src/features/qrcode/data/repositories/qr_scanner_repository_impl.dart';
+import 'package:malina/src/features/qrcode/domain/repositories/qr_scanner_repository.dart';
+import 'package:malina/src/features/qrcode/domain/usecases/parse_qr_code.dart';
+import 'package:malina/src/features/qrcode/presentation/bloc/qr_scanner_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -41,10 +46,12 @@ Future<void> init() async {
   sl.registerLazySingleton<BasketLocalDataSource>(
     () => BasketLocalDataSourceImpl(sl()),
   );
+  sl.registerLazySingleton<QrScannerDataSource>(() => QrScannerDataSourceImpl());
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
   sl.registerLazySingleton<BasketRepository>(() => BasketRepositoryImpl(sl()));
+  sl.registerLazySingleton<QrScannerRepository>(() => QrScannerRepositoryImpl(sl()));
 
   // Use cases
   sl.registerLazySingleton(() => LoginUser(sl()));
@@ -58,6 +65,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RemoveBasketItem(sl()));
   sl.registerLazySingleton(() => ClearBasket(sl()));
   sl.registerLazySingleton(() => ClearCategory(sl()));
+  sl.registerLazySingleton(() => ParseQrCode(sl()));
 
   // Bloc
   sl.registerFactory(() => LoginBloc(loginUser: sl()));
@@ -72,4 +80,5 @@ Future<void> init() async {
       getCurrentUser: sl(),
     ),
   );
+  sl.registerFactory(() => QrScannerBloc(parseQrCode: sl()));
 }

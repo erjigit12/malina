@@ -104,30 +104,30 @@ class _MenuCircleItem extends StatelessWidget {
               ],
             ),
           ),
-          if (notification)
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: const Center(
-                  child: Text(
-                    '1',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          // if (notification)
+          //   Positioned(
+          //     top: 10,
+          //     right: 10,
+          //     child: Container(
+          //       width: 20,
+          //       height: 20,
+          //       decoration: BoxDecoration(
+          //         color: AppColors.primary,
+          //         shape: BoxShape.circle,
+          //         border: Border.all(color: Colors.white, width: 2),
+          //       ),
+          //       child: const Center(
+          //         child: Text(
+          //           '1',
+          //           style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.bold,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
     );

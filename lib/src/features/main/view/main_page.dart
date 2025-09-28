@@ -3,6 +3,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
 import 'package:malina/src/features/features.dart';
 
@@ -136,7 +137,10 @@ class MainScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 40),
                 child: GestureDetector(
                   onTap: () {
-                    context.read<MainCubit>().change(2);
+                    context.push(
+                      AppRoutes.qrScanner,
+                      extra: const QrScannerArgs(origin: QrScannerOrigin.home),
+                    );
                   },
                   child: Container(
                     width: 64,

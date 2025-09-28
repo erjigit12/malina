@@ -23,6 +23,20 @@ class AppTextStyles {
     color: Colors.black,
   );
 
+  static final f17w400 = GoogleFonts.wixMadeforDisplay(
+    fontSize: 17,
+    fontWeight: FontWeight.w400,
+    height: 22 / 17,
+    color: Colors.black,
+  );
+
+  static final f16w300 = GoogleFonts.roboto(
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    height: 1.1,
+    color: Colors.black,
+  );
+
   static final f16w400 = GoogleFonts.wixMadeforDisplay(
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -39,15 +53,15 @@ class AppTextStyles {
 
   static final f17w500 = GoogleFonts.wixMadeforDisplay(
     fontSize: 17,
-    fontWeight: FontWeight.w400,
-    height: 22 / 17,
+    fontWeight: FontWeight.w500,
+    height: 1,
     color: Colors.black,
   );
 
-  static final f16w300 = GoogleFonts.roboto(
-    fontSize: 16,
-    fontWeight: FontWeight.w300,
-    height: 1.1,
+  static final f18w400 = GoogleFonts.wixMadeforDisplay(
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+    height: 1,
     color: Colors.black,
   );
 

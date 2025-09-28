@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/src/core/core.dart';
-import 'package:malina/src/features/basket/domain/entities/basket_item_entity.dart';
 import 'package:malina/src/features/features.dart';
 
 class AddBasketPage extends StatefulWidget {
@@ -94,6 +93,50 @@ class _AddBasketPageState extends State<AddBasketPage> {
 
   static const _customCategoryKey = '__custom__';
 
+  Future<void> _onScanPressed() async {
+    final product = await context.push<QrProduct>(
+      AppRoutes.qrScanner,
+      extra: const QrScannerArgs(origin: QrScannerOrigin.addItem),
+    );
+
+    if (product != null && mounted) {
+      _applyProduct(product);
+    }
+  }
+
+  void _applyProduct(QrProduct product) {
+    setState(() {
+      final category = product.category.trim();
+      final matchedCategory = _findCategoryMatch(category);
+      if (matchedCategory != null) {
+        _selectedCategory = matchedCategory;
+        _useCustomCategory = false;
+        _customCategoryController.clear();
+      } else {
+        _selectedCategory = null;
+        _useCustomCategory = true;
+        _customCategoryController.text = category;
+      }
+
+      _subcategoryController.text = product.subcategory;
+      _nameController.text = product.name;
+      _priceController.text = product.price.toStringAsFixed(
+        product.price % 1 == 0 ? 0 : 2,
+      );
+      _descriptionController.text = product.description ?? '';
+    });
+  }
+
+  String? _findCategoryMatch(String category) {
+    final categories = context.read<BasketBloc>().state.categories;
+    for (final value in categories) {
+      if (value.toLowerCase() == category.toLowerCase()) {
+        return value;
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +152,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
         centerTitle: false,
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: _onScanPressed,
             child: Text('Сканировать', style: AppTextStyles.f14w400),
           ),
         ],
