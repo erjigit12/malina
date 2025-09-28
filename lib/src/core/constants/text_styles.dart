@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
+  static final f10w400 = GoogleFonts.wixMadeforDisplay(
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    height: 1,
+    color: Colors.black,
+  );
+
   static final f12w400 = GoogleFonts.wixMadeforDisplay(
     fontSize: 12,
     fontWeight: FontWeight.w400,

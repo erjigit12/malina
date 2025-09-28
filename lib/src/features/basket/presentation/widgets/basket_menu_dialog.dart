@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:malina/src/core/constants/colors.dart';
-import 'package:malina/src/core/routes/app_routes.dart';
+import 'package:malina/src/core/core.dart';
 
 class BasketMenuPopup extends StatelessWidget {
   const BasketMenuPopup({super.key, required this.parentContext});
@@ -101,10 +100,7 @@ class _MenuCircleItem extends StatelessWidget {
               children: [
                 Icon(icon, size: 25, color: Colors.black87),
                 const SizedBox(height: 6),
-                Text(
-                  label,
-                  style: const TextStyle(fontSize: 15, color: Colors.black87),
-                ),
+                Text(label, style: AppTextStyles.f10w400),
               ],
             ),
           ),

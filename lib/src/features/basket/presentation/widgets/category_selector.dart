@@ -45,49 +45,38 @@ class _CategoryChip extends StatelessWidget {
     required this.label,
     required this.isActive,
     required this.onTap,
+    // this.isExpanded = false,
   });
 
   final String label;
   final bool isActive;
   final VoidCallback onTap;
+  // final bool isExpanded;
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = AppTextStyles.f16w400.copyWith(
-      color: isActive ? Colors.white : AppColors.black,
-    );
-
+    // final horizontalPadding = isExpanded ? 0.0 : 28.0;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        height: 48,
+        padding: EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
           color: isActive ? AppColors.primary : AppColors.white,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(28),
           border: Border.all(
             color: isActive ? AppColors.primary : AppColors.lightGrey,
+            width: 1.4,
           ),
-          boxShadow:
-              isActive
-                  ? [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ]
-                  : null,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (isActive) ...[
-              const Icon(Icons.check, size: 16, color: Colors.white),
-              const SizedBox(width: 6),
-            ],
-            Text(label, style: textStyle),
-          ],
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: AppTextStyles.f16w400.copyWith(
+            color: isActive ? Colors.white : AppColors.black,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );

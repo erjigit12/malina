@@ -42,10 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             TextButton(
               onPressed: _logout,
-              child: Text(
-                'Выйти',
-                style: AppTextStyles.f14w400.copyWith(color: AppColors.primary),
-              ),
+              child: Text('Выйти', style: AppTextStyles.f14w400),
             ),
           ],
         ),
@@ -70,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   const Spacer(),
                   ConfirmButton(
-                    title: 'Удалить аккаунт',
+                    title: 'Удалить',
                     onPressed: _deleteAccount,
                     isLoading: _isDeleting,
                   ),

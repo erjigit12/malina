@@ -94,13 +94,6 @@ class _AddBasketPageState extends State<AddBasketPage> {
 
   static const _customCategoryKey = '__custom__';
 
-  OutlineInputBorder _fieldBorder(Color color) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide(color: color, width: 1),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,7 +206,7 @@ class _AddBasketPageState extends State<AddBasketPage> {
             filled: true,
             fillColor: const Color(0xFFFFEDF2),
             contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            enabledBorder: _fieldBorder(AppColors.lightGrey),
+            enabledBorder: _fieldBorder(AppColors.black),
             focusedBorder: _fieldBorder(AppColors.primary),
           ),
           child: DropdownButtonHideUnderline(
@@ -264,12 +257,19 @@ class _AddBasketPageState extends State<AddBasketPage> {
         filled: true,
         fillColor: const Color(0xFFFFEDF2),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        enabledBorder: _fieldBorder(AppColors.lightGrey),
+        enabledBorder: _fieldBorder(AppColors.black),
         focusedBorder: _fieldBorder(AppColors.primary),
         errorBorder: _fieldBorder(AppColors.primary),
         focusedErrorBorder: _fieldBorder(AppColors.primary),
       ),
       validator: validator,
+    );
+  }
+
+  OutlineInputBorder _fieldBorder(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(color: color, width: 1),
     );
   }
 }

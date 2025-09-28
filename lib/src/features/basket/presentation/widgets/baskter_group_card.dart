@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:malina/src/core/core.dart';
 import 'package:malina/src/features/basket/domain/entities/basket_item_entity.dart';
 import 'package:malina/src/features/features.dart';
@@ -27,21 +26,7 @@ class BasketGroupCard extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(subcategory, style: AppTextStyles.f16w500),
-              IconButton(
-                icon: const Icon(Icons.delete_outline, color: AppColors.lightBlack),
-                onPressed: () {
-                  final category = items.first.category;
-                  context.read<BasketBloc>().add(
-                    BasketSubcategoryCleared(
-                      category: category,
-                      subcategory: subcategory,
-                    ),
-                  );
-                },
-              ),
-            ],
+            children: [Text(subcategory, style: AppTextStyles.f16w500)],
           ),
           const Divider(height: 24, thickness: 0.5, color: AppColors.lightGrey),
           ...items.map((item) => BasketItemTile(item: item)),
@@ -55,17 +40,13 @@ class BasketGroupCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Всего',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: AppTextStyles.f16w500.copyWith(color: Colors.white),
                 ),
                 Text(
                   '${_formatCurrency(total)} C',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyles.f16w500.copyWith(color: Colors.white),
                 ),
               ],
             ),

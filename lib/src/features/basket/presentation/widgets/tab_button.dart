@@ -30,9 +30,8 @@ class TabButton extends StatelessWidget {
               ),
       child: Text(
         text,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: selected ? Colors.white : Colors.black,
+        style: AppTextStyles.f16w500.copyWith(
+          color: selected ? Colors.white : AppColors.tabColor,
         ),
       ),
     );

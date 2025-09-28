@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:malina/src/core/core.dart';
 import 'package:malina/src/features/basket/domain/entities/basket_item_entity.dart';
 import 'package:malina/src/features/features.dart';
@@ -32,7 +33,9 @@ class BasketItemTile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     item.description!,
-                    style: AppTextStyles.f12w400.copyWith(color: const Color(0xFF777777)),
+                    style: AppTextStyles.f12w400.copyWith(
+                      color: const Color(0xFF777777),
+                    ),
                   ),
                 ],
                 const SizedBox(height: 12),
@@ -45,16 +48,14 @@ class BasketItemTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                '${_formatCurrency(item.price)} C',
-                style: AppTextStyles.f16w500,
-              ),
+              Text('${_formatCurrency(item.price)} C', style: AppTextStyles.f16w500),
               const SizedBox(height: 24),
               IconButton(
-                icon: const Icon(Icons.delete_outline, color: AppColors.lightBlack),
+                icon: SvgPicture.asset('assets/icons/delete.svg'),
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                onPressed: () => context.read<BasketBloc>().add(BasketItemRemoved(item.id)),
+                onPressed:
+                    () => context.read<BasketBloc>().add(BasketItemRemoved(item.id)),
               ),
             ],
           ),

@@ -150,18 +150,14 @@ class FoodBasket extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       'Всего',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: AppTextStyles.f16w500.copyWith(color: Colors.white),
                     ),
                     Text(
                       '250 С',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: AppTextStyles.f16w500.copyWith(color: Colors.white),
                     ),
                   ],
                 ),
