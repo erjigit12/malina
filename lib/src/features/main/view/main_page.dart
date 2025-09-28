@@ -14,7 +14,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainScreen(const [
       HomePage(),
-      SizedBox(),
+      FavoritesPage(),
       SizedBox(),
       ProfilePage(),
       SizedBox(),
@@ -29,6 +29,8 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentIndex = context.watch<MainCubit>().state;
+    final bottomInset = MediaQuery.of(context).padding.bottom;
+    final fabBottom = bottomInset;
 
     return Scaffold(
       body: items[currentIndex],
@@ -133,7 +135,7 @@ class MainScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 40),
+                padding: EdgeInsets.only(bottom: fabBottom),
                 child: GestureDetector(
                   onTap: () {
                     context.push(
@@ -142,8 +144,6 @@ class MainScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 64,
-                    height: 64,
                     decoration: BoxDecoration(
                       color: AppColors.primary,
                       shape: BoxShape.circle,
@@ -160,8 +160,7 @@ class MainScreen extends StatelessWidget {
                         currentIndex == 0
                             ? 'assets/icons/qrcode.svg'
                             : 'assets/icons/qrcodeshare.svg',
-                        width: 32,
-                        height: 32,
+                        fit: BoxFit.cover,
                         colorFilter: const ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,

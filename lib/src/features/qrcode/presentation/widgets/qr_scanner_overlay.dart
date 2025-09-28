@@ -23,66 +23,55 @@ class _OverlayPainter extends CustomPainter {
           ..color = Colors.black.withOpacity(0.65)
           ..style = PaintingStyle.fill;
 
-    final overlayPath = Path()..addRect(Offset.zero & size);
-    final frameRect = _frameRect(size, 32);
+    final screen = Offset.zero & size;
+    final unit = size.shortestSide;
+    final frameSize = unit * 0.68;
+    final left = (size.width - frameSize) / 2;
+    final top = (size.height - frameSize) / 2;
+    final frameRect = Rect.fromLTWH(left, top, frameSize, frameSize);
 
-    overlayPath.addRect(frameRect);
-    canvas.drawPath(
-      Path.combine(
-        PathOperation.difference,
-        Path()..addRect(Offset.zero & size),
-        overlayPath,
-      ),
-      overlayPaint,
+    final outer = Path()..addRect(screen);
+    final inner = Path()..addRect(frameRect);
+    final difference = Path.combine(PathOperation.difference, outer, inner);
+    canvas.drawPath(difference, overlayPaint);
+
+    canvas.drawRect(
+      frameRect,
+      Paint()
+        ..color = Colors.white.withOpacity(0.01)
+        ..style = PaintingStyle.fill,
     );
 
-    final fillPaint =
-        Paint()
-          ..color = const Color(0xFF1F1F1F)
-          ..style = PaintingStyle.fill;
-    canvas.drawRect(frameRect, fillPaint);
-
-    _drawCorner(canvas, frameRect.topLeft, const Offset(28, 0), const Offset(0, 28));
-    _drawCorner(
-      canvas,
-      frameRect.topRight,
-      const Offset(-28, 0),
-      const Offset(0, 28),
-    );
-    _drawCorner(
-      canvas,
-      frameRect.bottomLeft,
-      const Offset(28, 0),
-      const Offset(0, -28),
-    );
-    _drawCorner(
-      canvas,
-      frameRect.bottomRight,
-      const Offset(-28, 0),
-      const Offset(0, -28),
-    );
+    _drawCorners(canvas, frameRect);
   }
 
-  Rect _frameRect(Size size, double margin) {
-    final length = size.width - margin * 2;
-    final top = size.height * 0.18;
-    return Rect.fromLTWH(margin, top, length, length);
-  }
-
-  void _drawCorner(
-    Canvas canvas,
-    Offset origin,
-    Offset horizontalOffset,
-    Offset verticalOffset,
-  ) {
-    final paint =
+  void _drawCorners(Canvas canvas, Rect rect) {
+    const cornerLengthRatio = 0.22;
+    final length = rect.width * cornerLengthRatio;
+    final strokePaint =
         Paint()
           ..color = Colors.white
           ..strokeWidth = 4
+          ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round;
 
-    canvas.drawLine(origin, origin + horizontalOffset, paint);
-    canvas.drawLine(origin, origin + verticalOffset, paint);
+    canvas
+      ..drawLine(rect.topLeft, rect.topLeft.translate(length, 0), strokePaint)
+      ..drawLine(rect.topLeft, rect.topLeft.translate(0, length), strokePaint)
+      ..drawLine(rect.topRight, rect.topRight.translate(-length, 0), strokePaint)
+      ..drawLine(rect.topRight, rect.topRight.translate(0, length), strokePaint)
+      ..drawLine(rect.bottomLeft, rect.bottomLeft.translate(length, 0), strokePaint)
+      ..drawLine(rect.bottomLeft, rect.bottomLeft.translate(0, -length), strokePaint)
+      ..drawLine(
+        rect.bottomRight,
+        rect.bottomRight.translate(-length, 0),
+        strokePaint,
+      )
+      ..drawLine(
+        rect.bottomRight,
+        rect.bottomRight.translate(0, -length),
+        strokePaint,
+      );
   }
 
   @override
