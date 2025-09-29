@@ -93,7 +93,8 @@ class AuthRepositoryImpl implements AuthRepository {
     if (email == null) {
       return null;
     }
-    return _localDataSource.fetchUser(email);
+    final storedUser = await _localDataSource.fetchUser(email);
+    return storedUser?.toEntity();
   }
 
   @override

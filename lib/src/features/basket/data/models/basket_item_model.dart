@@ -1,18 +1,24 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:malina/src/features/basket/domain/entities/basket_item_entity.dart';
 
-class BasketItemModel extends BasketItemEntity {
-  const BasketItemModel({
-    required super.id,
-    required super.category,
-    required super.subcategory,
-    required super.name,
-    required super.price,
-    required super.quantity,
-    super.description,
-    super.imagePath,
-    required super.createdAt,
-  });
+part 'basket_item_model.freezed.dart';
+
+@freezed
+abstract class BasketItemModel with _$BasketItemModel {
+  const BasketItemModel._();
+
+  const factory BasketItemModel({
+    required String id,
+    required String category,
+    required String subcategory,
+    required String name,
+    required double price,
+    required int quantity,
+    String? description,
+    String? imagePath,
+    required DateTime createdAt,
+  }) = _BasketItemModel;
 
   factory BasketItemModel.fromEntity(BasketItemEntity entity) {
     return BasketItemModel(
@@ -28,7 +34,19 @@ class BasketItemModel extends BasketItemEntity {
     );
   }
 
-  BasketItemEntity toEntity() => copyWith();
+  BasketItemEntity toEntity() {
+    return BasketItemEntity(
+      id: id,
+      category: category,
+      subcategory: subcategory,
+      name: name,
+      price: price,
+      quantity: quantity,
+      description: description,
+      imagePath: imagePath,
+      createdAt: createdAt,
+    );
+  }
 }
 
 class BasketItemAdapter extends TypeAdapter<BasketItemModel> {

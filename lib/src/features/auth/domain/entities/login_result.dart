@@ -1,14 +1,14 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'login_result.freezed.dart';
 
 enum LoginStatus { success, invalidPassword, userDeleted, error }
 
-class LoginResult extends Equatable {
-  final LoginStatus status;
-  final String? message;
-  final int? attemptsLeft;
-
-  const LoginResult({required this.status, this.message, this.attemptsLeft});
-
-  @override
-  List<Object?> get props => [status, message, attemptsLeft];
+@freezed
+abstract class LoginResult with _$LoginResult {
+  const factory LoginResult({
+    required LoginStatus status,
+    String? message,
+    int? attemptsLeft,
+  }) = _LoginResult;
 }

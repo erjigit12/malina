@@ -1,16 +1,54 @@
-# malina
+# Malina
 
-A new Flutter project.
+Многофункциональное Flutter‑приложение с авторизацией, хранением корзины, профилем и поддержкой сканирования QR. Проект построен на архитектуре «feature-first» с выделенным слоем `core`, использует BLoC для управления состоянием и DI через `get_it`.
 
-## Getting Started
+## Возможности
+- Авторизация с локальным хранением пользователей и ограничением по числу ошибочных попыток. После превышения лимита данные пользователя и корзина удаляются автоматически.
+- Управление корзиной: категории, группировка по подкатегориям, расчет сумм, редактирование количества и очистка данных.
+- Сканирование QR-кодов (JSON и текстовый формат), нормализация категорий и отображение результатов перед добавлением в корзину.
+- Профиль пользователя и основная навигация, реализованная через `go_router`.
+- Локальное хранилище на базе Hive и SharedPreferences, а также работы с активными сессиями пользователей.
 
-This project is a starting point for a Flutter application.
+## Технологический стек
+- **Framework:** Flutter 3.7+
+- **State management:** `bloc`, `flutter_bloc`
+- **DI:** `get_it`
+- **Навигация:** `go_router`
+- **Хранение данных:** `hive`, `hive_flutter`, `shared_preferences`
+- **Сканирование QR:** `mobile_scanner`
+- **Генерация кода:** `freezed`, `json_serializable`, `flutter_gen_runner`, `build_runner`
+- **Стили и утилиты:** `google_fonts`, `flutter_svg`, собственные темы и константы
 
-A few resources to get you started if this is your first Flutter project:
+## Быстрый старт
+1. Установить Flutter SDK (3.7.0 или выше) и выполнить `flutter doctor`.
+2. В корне проекта подтянуть зависимости: `flutter pub get`.
+3. Сгенерировать необходимые файлы (Freezed, JSON, FlutterGen):
+   ```bash
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
+4. Запустить приложение:
+   ```bash
+   flutter run
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Структура проекта
+```
+lib/
+├── src/
+│   ├── core/            # общие константы, темы, utils, роутинг
+│   ├── features/
+│   │   ├── auth/        # авторизация (bloc, data, domain, presentation)
+│   │   ├── basket/      # корзина и виджеты
+│   │   ├── qrcode/      # сканер QR, модели, блоки
+│   │   ├── profile/     # экран профиля
+│   │   └── main/        # главная навигация и диалог
+│   └── injection_container.dart # DI-контейнер
+├── gen/                 # автогенерируемые файлы (flutter_gen)
+└── main.dart            # точка входа
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Конфигурация окружения
+- Hive использует адаптеры, объявленные в `lib/src/features/basket/data/models/basket_item_model.dart`.
+- SharedPreferences хранит пользователей и текущую сессию в ключах `auth_users` и `auth_current_user`.
+- Не забудьте зарегистрировать адаптеры Hive во `main.dart` перед запуском.
+

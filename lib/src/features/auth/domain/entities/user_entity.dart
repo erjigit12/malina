@@ -1,24 +1,12 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UserEntity extends Equatable {
-  final String email;
-  final String password;
-  final int failedAttempts;
+part 'user_entity.freezed.dart';
 
-  const UserEntity({
-    required this.email,
-    required this.password,
-    required this.failedAttempts,
-  });
-
-  @override
-  List<Object?> get props => [email, password, failedAttempts];
-
-  UserEntity copyWith({String? email, String? password, int? failedAttempts}) {
-    return UserEntity(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      failedAttempts: failedAttempts ?? this.failedAttempts,
-    );
-  }
+@freezed
+abstract class UserEntity with _$UserEntity {
+  const factory UserEntity({
+    required String email,
+    required String password,
+    required int failedAttempts,
+  }) = _UserEntity;
 }

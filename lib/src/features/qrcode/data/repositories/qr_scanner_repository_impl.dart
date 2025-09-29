@@ -9,6 +9,7 @@ class QrScannerRepositoryImpl implements QrScannerRepository {
 
   @override
   Future<QrProduct> parseCode(String rawValue) async {
-    return _dataSource.parse(rawValue);
+    final model = _dataSource.parse(rawValue);
+    return model.toEntity();
   }
 }

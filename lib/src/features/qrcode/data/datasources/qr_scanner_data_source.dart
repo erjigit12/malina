@@ -12,20 +12,12 @@ class QrScannerDataSourceImpl implements QrScannerDataSource {
       if (sanitized.isEmpty) throw FormatException(_errorMessage(rawValue));
 
       if (_looksLikeJson(sanitized)) {
-        final model = QrProductModel.fromJson(sanitized);
+        final model = QrProductModel.fromRawJson(sanitized);
         final mappedCategory = _mapCategory(model.category);
         if (mappedCategory == null) {
           throw FormatException(_errorMessage(rawValue));
         }
-        return QrProductModel(
-          id: model.id,
-          category: mappedCategory,
-          subcategory: model.subcategory,
-          name: model.name,
-          price: model.price,
-          description: model.description,
-          image: model.image,
-        );
+        return model.copyWith(category: mappedCategory);
       }
 
       return QrProductModel.fromMap(_parsePlainText(sanitized));

@@ -1,34 +1,34 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:malina/src/features/auth/domain/entities/user_entity.dart';
 
-class UserModel extends UserEntity {
-  const UserModel({
-    required super.email,
-    required super.password,
-    required super.failedAttempts,
-  });
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+@freezed
+abstract class UserModel with _$UserModel {
+  const UserModel._();
+
+  const factory UserModel({
+    @Default('') String email,
+    @Default('') String password,
+    @Default(0) int failedAttempts,
+  }) = _UserModel;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+
+  factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
-      email: json['email'] as String? ?? '',
-      password: json['password'] as String? ?? '',
-      failedAttempts: json['failedAttempts'] as int? ?? 0,
+      email: entity.email,
+      password: entity.password,
+      failedAttempts: entity.failedAttempts,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'password': password,
-      'failedAttempts': failedAttempts,
-    };
-  }
-
-  @override
-  UserModel copyWith({String? email, String? password, int? failedAttempts}) {
-    return UserModel(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      failedAttempts: failedAttempts ?? this.failedAttempts,
+  UserEntity toEntity() {
+    return UserEntity(
+      email: email,
+      password: password,
+      failedAttempts: failedAttempts,
     );
   }
 }
